@@ -21,14 +21,21 @@ def image_to_text(image):
 
 camera = cv2.VideoCapture(0)
 _, image = camera.read()
+images = [image]
 
 while True:
-    cv2.imshow("The Epic Highlighter", image)
-    if True or cv2.waitKey(1) == 32:
+    if cv2.waitKey(1) == 32:
         _, image = camera.read()
-        image = cv2.putText(image, image_to_text(image), (50, 50), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 0, 0), 1, cv2.LINE_AA)
+        images.append(image)
     if cv2.waitKey(1) == 27:
         break
+
+    cv2.imshow("Ultralight", image)
+
+image = cv2.hconcat(images)
+print(image_to_text(image))
+
+#image = cv2.putText(image, image_to_text(image), (50, 50), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 0, 0), 1, cv2.LINE_AA)
 #cv2.imwrite('input.png', image)
 #image = cv2.imread("input.png")
 cv2.destroyAllWindows()
